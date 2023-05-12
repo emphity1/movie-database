@@ -28,3 +28,18 @@ a {
     margin-right: auto;
     
 }
+
+.container{
+    text-align: center;
+    padding-top: 10em;
+}
+p{
+    margin-top: 4em;
+}
+
+
+/* ----------- REGISTRATION FORM -----------*/
+
+#password,#username,#cognome,#email,#nome{
+    text-align: center;
+}
