@@ -50,8 +50,8 @@
 <ul class="movie-title" th:if="${not #lists.isEmpty(movies)}">
     <div class="movie-column">
         <li th:each="movie : ${movies}">
-            <a class="movie-title" href="movie.html" th:href="@{'/movie/' + movie.id}"
-                th:text="${movie.title + ' (' + movie.year + ')'}">Up! (2000)</a>
+            <a href="movie.html" th:href="@{'/movie' + '/' + ${movie.id}}"
+				th:text="${movie.title} + ' (' + ${movie.year}+')'">Up! (2000)</a>
         </li>
     </div>
 </ul>
