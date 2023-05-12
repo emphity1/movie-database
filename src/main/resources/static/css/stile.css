@@ -43,3 +43,36 @@ p{
 #password,#username,#cognome,#email,#nome{
     text-align: center;
 }
+
+.register-user-container{
+    padding: 0;
+    margin: 0;
+}
+.register-container{
+    padding: 4em;
+    margin: 0;
+}
+
+/*------------ LOGIN FORM ------------------*/
+
+.login-user-text{
+    padding: 0;
+    margin: 0;
+}
+
+.login-container{
+    padding: 4em;
+    margin: 0em;
+}
+
+
+.login-user-container{
+    padding: 0;
+    margin: 0;
+}
+.pass-error{
+    color: red;
+}
+.btn{
+    margin-top: 1em;
+}
