@@ -76,3 +76,46 @@ p{
 .btn{
     margin-top: 1em;
 }
+
+
+/* ------ RICERCA FILM -----------*/
+
+#anno{
+    text-align: center;
+}
+
+/*-------- foundMovies.html ----------*/
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+}
+
+.movie-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.movie-title{
+    text-decoration: none;
+    color: black;
+    text-align: center;
+
+}
+.movie-column{
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    padding-top: 1em;
+}
+.search-results{
+    text-align: center;
+    padding-top: 1em;
+    margin: 0;
+}
+ul.movie-title {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}

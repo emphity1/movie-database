@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html>
 
@@ -11,13 +8,15 @@
 	<!-- Collegamento al file CSS di Bootstrap -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.4.0/css/bootstrap.min.css">
+	
 	<link rel="stylesheet" href="/css/stile.css" />
+	
 </head>
 
 <body>
-<!------------------------ Navbar ------------------------------->
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/#">SIW MOVIE DATABASE</a>
+    <a class="navbar-brand" href="#">SIW MOVIE DATABASE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,31 +30,23 @@
 				<a class="nav-link" href="/artist">Elenco Artisti</a>
 			</li>
 			<li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
-				<a class="nav-link" href="/formSearchMovies">Ricerca Film</a>
+				<a class="nav-link" href="/indexMovie">Ricerca Film</a>
 			</li>
 		</ul>
 		<ul class="navbar-nav">
+		  <li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
+			<a class="nav-link" href="/login">Login</a>
+		  </li>
 		  <li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
 			<a class="nav-link" href="/logout">Logout</a>
 		  </li>
+		  <li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
+			<a class="nav-link" href="/register">Register</a>
+		  </li>
+
 		</ul>
 	  </div>
 </nav>
-
-<!-------------------- RISULTATI DELLA RICERCA ------------------------>
-
-
-<h1 class="search-results">Risultati della ricerca</h1>
-<div th:if="${movies.isEmpty()}">Non ci sono film che soddisfano i requisiti</div>
-<ul class="movie-title" th:if="${not #lists.isEmpty(movies)}">
-    <div class="movie-column">
-        <li th:each="movie : ${movies}">
-            <a class="movie-title" href="movie.html" th:href="@{'/movie/' + movie.id}"
-                th:text="${movie.title + ' (' + movie.year + ')'}">Up! (2000)</a>
-        </li>
-    </div>
-</ul>
-
 
 
 
@@ -67,53 +58,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
+ 
 </html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>Film</title>
-	<link rel="stylesheet" href="/css/stile.css" />
-</head>
-
-<body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	<h1>Film che soddisfano i requisiti</h1>
-	<div th:if="${movies.isEmpty()}">Non ci sono film che soddisfano i requisiti</div>
-	<ul th:if="${!movies.isEmpty()}">
-		<li th:each="movie : ${movies}">
-			<a href="movie.html" th:href="@{'/movie' + '/' + ${movie.id}}"
-				th:text="${movie.title} + ' (' + ${movie.year}+')'">Up! (2000)</a>
-		</li>
-	</ul>
-</body>
-
-</html>
-
--->

@@ -36,7 +36,7 @@
 
     <div class="container mt-4 register-user-container">
         <h2 class="register-user-text">Registrazione Utente</h2>
-        <form class="register-container" >
+        <form class="register-container" th:action="@{/register}" method="POST" >
 			<!------ USERNAME ------>
             <div class="form-group">
                 <label for="username">Username</label>
