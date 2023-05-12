@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+
+
+*{
+    font-family: 'Questrial', sans-serif;
+    text-decoration: none;
+}
+a { 
+	text-decoration: none; 
+}
+
+
+
+.navbar {
+    background-color: #f8f9fa; /* Cambia il colore di sfondo */
+    padding: 10px; /* Aggiungi spaziatura interna */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Aggiungi ombra */
+  }
+
+.navbar-brand{
+    font-size: 30px;
+}
+
+.elenco{
+    margin: 0;
+    padding: 0;
+    margin-right: auto;
+    
+}
+
+
+
+
+.film-op, .artists-op{
+    text-align: center;
+    padding-top: 1em;
+}
+
+
+.film-op a, .artists-op a{
+    color: black;
+}
+
+.film-op a:hover, .artists-op a:hover{
+    color: blue;
+}
+
+/*------ indexMovie.html --------- */
+
+.text-film-manger{
+    text-align: center;
+    padding-top: 1em;
+}
+
+/*---------- indexAdmin.html ---------*/
+
+.text-admin-panel{
+    text-align: left;
+    padding-top: 1em;
+}
+
+
+/* Operazione sui film drop-down menu*/
+
+.dropdown-container {
+    display: flex;
+    text-align: center;
+  }
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropbtn {
+    background-color: #f1f1f1;
+    color: black;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown:hover .dropbtn {
+    background-color: #ccc;
+  }
+  
+  
+
+  /* --- forNewMovie.html ----*/
+
+ 
+  
+  .form {
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+  label {
+    display: block;
+  }
+  
+  input[type="text"],
+  button {
+    padding: 5px 10px;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 1em;
+  }
+  
+  .heading {
+    text-align: center;
+  }
+
+  /*---- manageMovies.html -------- */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1em;
+    flex-direction: column;
+  }
+  
+  .heading {
+    text-align: center;
+  }
+  
+  .movie-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .movie-list li {
+    margin-bottom: 10px;
+    padding-top: 10px;
+  }
+  
+
+  /*-------  formUpdateMovie.html -----------*/
+
+.container {
+display: flex;
+justify-content: center;
+align-items: center;
+padding-top: 1em;
+flex-direction: column;
+}
+
+.heading {
+text-align: center;
+margin-bottom: 20px;
+}
+
+.movie-details {
+text-align: center;
+}
+
+.movie-title {
+font-weight: bold;
+}
+
+.movie-year {
+font-style: italic;
+}
+
+.director-info {
+margin-top: 10px;
+}
+
+.update-director-link,
+.add-director-link {
+display: block;
+margin-top: 5px;
+
+}
+.modify-actors{
+margin-top: 5px;
+padding: 5px 10px;
+background-color: lightgray;
+border-radius: 5px;
+}
+
+.add-director-box {
+display: inline-block;
+padding: 5px 10px;
+background-color: lightgray;
+border-radius: 5px;
+}
+
+.actors {
+margin-top: 20px;
+}
+
+
+.no-movie {
+font-style: italic;
+}
+
+
+
+
+
+
+
+
+
