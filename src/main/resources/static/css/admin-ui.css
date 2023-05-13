@@ -60,7 +60,7 @@ a {
 }
 
 
-/* Operazione sui film drop-down menu*/
+/* ----------- Operazione sui film drop-down menu -----------*/
 
 .dropdown-container {
     display: flex;
@@ -68,7 +68,7 @@ a {
 
   }
 
-  
+
   .dropdown {
     position: relative;
   }
