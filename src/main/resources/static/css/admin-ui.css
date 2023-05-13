@@ -65,7 +65,9 @@ a {
 .dropdown-container {
     display: flex;
     text-align: center;
+
   }
+
   
   .dropdown {
     position: relative;
@@ -173,7 +175,9 @@ a {
 
   /*-------  formUpdateMovie.html -----------*/
 
+
 .container {
+font-size: 20px;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -206,20 +210,27 @@ margin-top: 10px;
 .add-director-link {
 display: block;
 margin-top: 5px;
+padding: 5px 10px;
+border-radius: 5px;
+color: black;
 
 }
 .modify-actors{
-margin-top: 5px;
-padding: 5px 10px;
-background-color: lightgray;
-border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 .add-director-box {
-display: inline-block;
-padding: 5px 10px;
-background-color: lightgray;
-border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 .actors {
@@ -232,10 +243,175 @@ font-style: italic;
 }
 
 
+/*----------------------- directorsToAdd.html ---------------------------*/
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 2em;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.artists-list {
+  text-align: center;
+}
+
+.artists {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.artists li {
+  margin-bottom: 10px;
+  list-style-type: none;
+}
+
+.artists a {
+  text-decoration: none;
+  color: black;
+  list-style-type: none;
+}
+
+.artists a:hover {
+  color: blue;
+}
 
 
 
 
+/*--------------- actorsToAdd.html --------------------*/
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.actors-list {
+  text-align: center;
+}
+
+.actors {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.actors li {
+  margin-bottom: 20px;
+}
+
+.actors a {
+  text-decoration: none;
+  color: black;
+}
+
+.actors a:hover {
+  color: blue;
+}
+
+.actors-to-add {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.actors-to-add li {
+  margin-bottom: 10px;
+}
+
+.actors-to-add a {
+  text-decoration: none;
+  color: black;
+}
+
+.actors-to-add a:hover {
+  color: blue;
+}
+
+button {
+  margin-top: 20px;
+}
 
 
+
+/*------------------ formNewArtist.html ---------------------*/
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1em;
+}
+
+.heading {
+  text-align: center;
+}
+
+.artist-form {
+  width: 600px;
+  padding: 20px;
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.form-field {
+  margin-bottom: 10px;
+  text-align: center;
+
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"] {
+  width: 200px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.submit-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
 
