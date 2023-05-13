@@ -23,8 +23,8 @@
 
 	<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 		<ul class="navbar-nav elenco">
-			<li class="nav-item elenco-film">
-				<a class="nav-link" href="/movie">Elenco Film</a>
+			<li  class="nav-item elenco-film" >
+				<a class="nav-link" href="/movieDefaultUser">Elenco Film</a>
 			</li>
 			<li class="nav-item elenco-artisti">
 				<a class="nav-link" href="/artist">Elenco Artisti</a>
@@ -53,14 +53,15 @@
 <!--------------- Contenuto principale ---------------------------->
 <div class="container" th:unless="${#request.userPrincipal}">
 	<h1>Benvenuto sul SIW Movie Databases</h1>
-    <p>Una volta registratosi, potrai consultare il nostro database dei film. Se sei gia registrato, prosegui con il login
+    <p>Puoi consultare la lista dei film e degli artisti.
+	Una volta registratosi, potra fare ricerche sui film. Se sei gia registrato, prosegui con il login
 	</p>
 </div>
 
 
 <div class="container-logged-in" th:if="${#request.userPrincipal}">
 	<h1>Benvenuto!</h1>
-    <p>Adesso puoi consultare Elenco dei Film, Artisti o fare una ricerca dei film in base all'anno.
+    <p>Adesso puoi consultare Elenco dei Film, Artisti,Fare una ricerca dei film o lasciare una recensione.
 	</p>
 </div>
 

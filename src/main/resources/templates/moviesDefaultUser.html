@@ -25,7 +25,7 @@
 	<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 		<ul class="navbar-nav elenco">
 			<li class="nav-item elenco-film">
-				<a class="nav-link" href="/movie">Elenco Film</a>
+				<a class="nav-link" href="/movieDefaultUser">Elenco Film</a>
 			</li>
 			<li class="nav-item elenco-artisti">
 				<a class="nav-link" href="/artist">Elenco Artisti</a>
@@ -68,56 +68,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>Film</title>
-	<link rel="stylesheet" href="/css/stile.css" />
-</head>
-
-<body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	<h1>Film</h1>
-	<div th:if="${movies==null || movies.isEmpty()}">Non ci sono film nel sistema</div>
-	<ul>
-		<li th:each="movie : ${movies}">
-			<a th:href="@{'/movie' + '/' + ${movie.id}}"
-				th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>
-		</li>
-	</ul>
-</body>
-
-</html>
-
--->

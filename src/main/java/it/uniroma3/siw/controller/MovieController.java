@@ -112,6 +112,13 @@ public class MovieController {
 		model.addAttribute("user", credentials.getUser());
 		return "movies.html";
 	}
+
+	// PER FAR ACCEDERE ALL'UTENTE QUALUNQUE LA LISTA DEI FILM
+	@GetMapping("/movieDefaultUser")
+	public String getMovie(Model model) {
+		model.addAttribute("movies", this.movieRepository.findAll());
+		return "moviesDefaultUser.html";
+	}
 	
 	@GetMapping("/formSearchMovies")
 	public String formSearchMovies() {

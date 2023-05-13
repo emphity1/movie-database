@@ -27,7 +27,7 @@
 	<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 		<ul class="navbar-nav elenco">
 			<li class="nav-item elenco-film">
-				<a class="nav-link" href="/movie">Elenco Film</a>
+				<a class="nav-link" href="/movieDefaultUser">Elenco Film</a>
 			</li>
 			<li class="nav-item elenco-artisti">
 				<a class="nav-link" href="/artist">Elenco Artisti</a>
@@ -37,9 +37,12 @@
 			</li>
 		</ul>
 		<ul class="navbar-nav">
+			
 		  <li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
 			<a class="nav-link" href="/logout">Logout</a>
 		  </li>
+
+
 		</ul>
 	  </div>
 </nav>
