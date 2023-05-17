@@ -1,5 +1,7 @@
 package it.uniroma3.siw.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -10,10 +12,9 @@ public interface ReviewsRepository extends CrudRepository<Reviews, Long>{
 
     /*
      * La query seleziona un valore booleano che indica se esiste un commento associato all'utente
-     *  specificato e all'ID del film specificato. La clausola COUNT(r) viene utilizzata per contare il
+     *  specificato e all'ID del film specificato. La clausola SELECT 1 viene utilizzata per selezionare 1 sola
      *  numero di risultati corrispondenti alla 
-     * condizione specificata. Se il conteggio è maggiore di 0, viene restituito true,
-     *  altrimenti viene restituito false
+     * condizione specificata. Cioè se esiste gia 1 condizione specificata ritorna true, altrimenti false
      * 
      * prego dio che funzioni...
      */
@@ -21,6 +22,11 @@ public interface ReviewsRepository extends CrudRepository<Reviews, Long>{
     @Query(value = "SELECT CASE WHEN EXISTS (SELECT 1 FROM reviews r WHERE r.commented_by_user = :username AND r.movie_id_by_comment= :movieId) THEN true ELSE false END", nativeQuery = true)
 
     boolean existsByCommentedByUserAndMovieIdByComment(@Param("username")String user,@Param("movieId") Long movieId);
+
+    List<Reviews> findByMovieId(Long movieId);
+
+
+    List<Reviews> findByMovieIdOrderByReviewIdDesc(Long movieId);
 
 
 }

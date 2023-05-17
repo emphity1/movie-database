@@ -39,32 +39,38 @@
 	  </div>
 </nav>
 
-<h1>Dettagli Film</h1>
-<div th:if="${movie}">
-    <h2 th:text="${movie.title}">Up!</h2>
-    <div class="image-box">
-        <img th:src="${movie.urlImage}" alt="Poster del film">
+<div class="film-section">
+    <div class="film-details">
+        <h1 class="film-details-text">Dettagli Film</h1>
+        <div th:if="${movie}">
+            <h2 th:text="${movie.title}">Up!</h2>
+            <div class="image-box">
+                <img th:src="${movie.urlImage}" alt="Poster del film">
+            </div>
+        </div>
+        <div th:unless="${movie}">Non esiste</div>
     </div>
-</div>
-<div th:unless="${movie}">Non esiste</div>
-
-<div class="review-section">
-	<h3>Aggiungi una recensione</h3>
-	<form th:action="@{'/movie/' + ${id} + '/saveComment'}" method="post">
-		<input th:value="${comment}" name="comment" placeholder="Scrivi la tua recensione" required>
-		<button type="submit">Invia recensione</button>
-	</form>
-</div>
-
-<div class="comment-section">
-	<h3>Recensioni</h3>
-    <div class="comment-list">
-     
-		
+	<div class="comment-section">
+        <h3 class="reviews-text">Recensioni</h3>
+        <ul class="comment-list">
+            <li th:each="review : ${review}">
+                <span th:text="${review.comment_by_user}">User</span>
+                ha commentato
+                <p th:text="${review.comment}">Commento</p>
+            </li>
+        </ul>
     </div>
+    <div class="review-section">
+        <h3>Aggiungi una recensione</h3>
+        <form class="comment-placeholder" th:action="@{'/movie/' + ${id} + '/saveComment'}" method="post">
+            <input th:value="${comment}" name="comment" placeholder="Scrivi la tua recensione" required>
+			<input type="number" name="rating" min="1" max="10" placeholder="Valutazione" required>
+			1-10
+            <button class="btn-send-review" type="submit">Invia recensione</button>
+        </form>
+    </div>
+
 </div>
-
-
 
 
 

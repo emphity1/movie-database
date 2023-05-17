@@ -12,6 +12,8 @@ public class ReviewsService {
     private ReviewsRepository reviewsRepository;
     
 
+
+    //gestione reviews
     public boolean hasReviewed(String user, Long movieId){
 
         return reviewsRepository.existsByCommentedByUserAndMovieIdByComment(user, movieId);

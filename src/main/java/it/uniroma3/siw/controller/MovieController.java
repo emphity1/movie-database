@@ -50,28 +50,28 @@ public class MovieController {
 	@Autowired
 	private ReviewsService reviewsService;
 
-	/* ==================== GESTIONE COMMENTI ===================== */
+	/* ====================== GESTIONE COMMENTI ========================= */
 
 	@PostMapping(value = "/movie/{id}/saveComment")
 	public String saveReview(@PathVariable("id") Long id,@RequestParam("comment") String comment, Principal principal){
 
-		
 		Reviews review = new Reviews(); //crea oggetto review
 		String LoggedUser = principal.getName();
-
-		if(reviewsService.hasReviewed(LoggedUser, id)){ //se l'utente è gia registrato ripartalo all'inizio
-			return "/index.html";
+		if(reviewsService.hasReviewed(LoggedUser, id)){ //se l'utente è ha gia commentato ripartalo all'inizio
+			return "/index.html"; // da finire
 		}
 
-		review.setComment(comment); //settagli il commento
+		review.setComment(comment); //passa all'oggetto il commento (da salvare)
 		review.setMovieId(id); // id del movie a cui lo sta associando(da vedere se serve)
 		review.setComment_by_user(LoggedUser); //mi ricavo l'user che ha commentato
 
 		reviewsRepository.save(review);
 
-		//da reindirizzare sulla pagina con il commento in questione GIA messo
+		//da reindirizzare sulla pagina con il commento in questione GIA pubblicato sulla pagina
 		return "redirect:/movie/" + id;
 	}
+
+
 
 
 
@@ -134,11 +134,16 @@ public class MovieController {
 		}
 	}
 
+
+	/* ======   QUI SOTTO implemento anche l'aggiunte dei commenti del film  =================*/
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", this.movieRepository.findById(id).get());
+
+		model.addAttribute("review", this.reviewsRepository.findAll());
 		return "movie.html";
 	}
+	/* ========================================================= */
 
 	@GetMapping("/movie")
 	public String getMovies(Model model) {

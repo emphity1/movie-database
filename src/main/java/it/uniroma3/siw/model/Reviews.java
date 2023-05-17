@@ -19,7 +19,7 @@ public class Reviews {
 
 
 
-	/* ===================== PER LA GESTIONE REVIEWS =================== */
+	/* =====================	 PER LA GESTIONE REVIEWS	 =================== */
 
 	@Column(name = "MovieIdByComment")
 	private Long movieId;
@@ -71,7 +71,7 @@ public class Reviews {
 	}
 
 
-	/* ============= GETTERS AND SETTERS ==================== */
+	/* =================	 ALTRI GETTERS AND SETTERS	 ==================== */
 
 
 	public Integer getReviewId() {

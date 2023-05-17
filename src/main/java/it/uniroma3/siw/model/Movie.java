@@ -39,12 +39,15 @@ public class Movie {
 	@ManyToMany
 	private Set<Artist> actors;
 
-	/* === PER LA GESTIONE REVIEWS ==== */
+
+
+	/* ======	 PER LA GESTIONE REVIEWS	 ====== */
 
 	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Reviews> reviews;
 
-	/* ============================= */
+	/* ============================================= */
+
 
 	
 	public Long getId() {
