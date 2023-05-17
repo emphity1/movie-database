@@ -1,0 +1,193 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		SIW MOVIE DATABASE
+	</title>
+	<!-- Collegamento al file CSS di Bootstrap -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.4.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/admin-ui.css" />
+</head>
+
+<body>
+<!-------------------- NAVBAR ----------------->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/#">SIW MOVIE DATABASE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+	<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+		<ul class="navbar-nav elenco">
+			<li class="nav-item elenco-film">
+				<a class="nav-link" href="/movie">Elenco Film</a>
+			</li>
+			<li class="nav-item elenco-artisti">
+				<a class="nav-link" href="/artist">Elenco Artisti</a>
+			</li>
+			<li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
+				<a class="nav-link" href="/formSearchMovies">Ricerca Film</a>
+			</li>
+		</ul>
+		<ul class="navbar-nav">
+		  <li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
+			<a class="nav-link" href="/login">Login</a>
+		  </li>
+		  <li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
+			<a class="nav-link" href="/logout">Logout</a>
+		  </li>
+		  <li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
+			<a class="nav-link" href="/register">Register</a>
+		  </li>
+
+		</ul>
+	  </div>
+</nav>
+
+
+<!--------------- Contenuto principale ---------------------------->
+
+
+<div class="container">
+    <h1 class="heading">Aggiungi un artista</h1>
+    <form class="artist-form" th:action="@{/admin/artist}" method="POST" th:object="${artist}">
+      <div class="error-message">
+        <span th:text="${messaggioErrore}">Errore</span>
+      </div>
+
+      <div class="form-field">
+        <label>Nome:</label>
+        <span><input required type="text" th:field="${artist.name}" /></span>
+      </div>
+
+      <div class="form-field">
+        <label>Cognome:</label>
+        <span><input required type="text" th:field="${artist.surname}" /></span>
+      </div>
+
+      <div class="form-field">
+        <label>Data di nascita:</label>
+        <span><input type="date" th:field="${artist.dateOfBirth}" /></span>
+      </div>
+
+      <div class="form-field">
+        <label>Fotografia (url):</label>
+        <span><input type="text" th:field="${artist.urlOfPicture}" /></span>
+      </div>
+
+      <div class="submit-button">
+        <button type="submit">Conferma</button>
+      </div>
+    </form>
+  </div>
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		New Artist
+	</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+	<h1>Aggiungi un artista</h1>
+	<form th:action="@{/admin/artist}" method="POST" th:object="${artist}">
+		<div>
+			<span th:text="${messaggioErrore}">Errore</span>
+		</div>
+		
+		<div>
+			<label>Nome:</label> <span><input required type="text" th:field="${artist.name}" /></span>
+		</div>
+
+		<div>
+			<label>Cognome:</label> <span><input required type="text" th:field="${artist.surname}" /></span>
+		</div>
+
+		<div>
+			<label>Data di nascita:</label> <span><input type="date" th:field="${artist.dateOfBirth}" /></span>
+		</div>
+
+		<div>
+			<label>Fotografia (url):</label> <span><input type="text" th:field="${artist.urlOfPicture}" /></span>
+		</div>
+		
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+</body>
+
+</html>
+
+
+-->

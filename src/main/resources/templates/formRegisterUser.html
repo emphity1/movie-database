@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		SiwMovie - Registrazione
+	</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+	<!------------------------NAVBAR ---------------------------- -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="/#">SIW MOVIE DATABASE</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+			<ul class="navbar-nav">
+			  <li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
+				<a class="nav-link" href="/login">Login</a>
+			  </li>
+			  <li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
+				<span th:text="${#request.userPrincipal.principal.username}"></span>
+				<a class="nav-link" href="/logout">Logout</a>
+			  </li>
+			</ul>
+		  </div>
+	</nav>
+
+
+<!------------------------ CAMPI REGISRAZIONE UTENTE -------------- -->
+
+    <div class="container mt-4 register-user-container">
+        <h2 class="register-user-text">Registrazione Utente</h2>
+        <form class="register-container" th:action="@{/register}" method="POST" >
+			<!------ USERNAME ------>
+            <div class="form-group">
+                <label for="username">Username</label>
+				<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
+				th:style="'color:red'"></span>
+                <input type="text" placeholder="username" required th:field="${credentials.username}" class="form-control" id="username" >
+            </div>
+			<!------ PASSWORD ------>
+            <div class="form-group">
+                <label for="password">Password</label>
+				<span
+					th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" th:style="'color:red'">
+				</span>
+                <input type="password" placeholder="password" required th:field="${credentials.password}" class="form-control" id="password" >
+            </div>
+			<!------ NOME ------>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+				<span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'"> </span>
+                <input type="text" placeholder="nome" required th:field="${user.name}" class="form-control" id="nome">
+            </div>
+			<!------ COGNOME ------>
+            <div class="form-group">
+                <label for="cognome">Cognome</label>
+				<span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'">
+				</span>
+                <input type="text" placeholder="cognome" class="form-control" id="cognome" required th:field="${user.surname}" >
+            </div>
+			<!------ EMAIL----->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" placeholder="email" required th:field="${user.email}" class="form-control" id="email" name="email">
+				<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
+				</span>
+			</div>
+			<!------ BUTTON REGISTER ------>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+
+
+<!-- 
+
+
+		<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+	<h1>Registrazione nuovo utente</h1>
+	<form th:action="@{/register}" method="POST">
+		<div>
+			<label>Username</label>
+			<span>
+				<input type="text" placeholder="username" required th:field="${credentials.username}" />
+			</span>
+			<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
+				th:style="'color:red'">
+			</span>
+		</div>
+		<div>
+			<label>Password</label>
+			<span><input type="password" placeholder="password" required th:field="${credentials.password}" />
+			</span>
+			<span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"
+				th:style="'color:red'">
+			</span>
+		</div>
+		<div>
+			<label>Nome</label>
+			<span><input type="text" placeholder="name" required th:field="${user.name}" /></span>
+			<span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'">
+			</span>
+		</div>
+		<div>
+			<label>Cognome</label>
+			<span><input type="text" placeholder="surname" required th:field="${user.surname}" /></span>
+			<span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" th:style="'color:red'">
+			</span>
+		</div>
+		<div>
+			<label>Email</label>
+			<span><input type="text" placeholder="email" required th:field="${user.email}" /></span>
+			<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
+			</span>
+		</div>
+		<div>
+			<button type="submit">Registra</button>
+		</div>
+	</form>
+
+
+
+
+
+
+
+
+
+
+
+-->
