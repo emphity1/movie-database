@@ -35,6 +35,19 @@ public class Reviews {
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private Movie movie;
+
+	
+	private int rating;
+
+
+
+	public int getRating() {
+		return this.rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 	 
 
 	public User getUser() {

@@ -53,7 +53,7 @@ public class MovieController {
 	/* ====================== GESTIONE COMMENTI ========================= */
 
 	@PostMapping(value = "/movie/{id}/saveComment")
-	public String saveReview(@PathVariable("id") Long id,@RequestParam("comment") String comment, Principal principal){
+	public String saveReview(@PathVariable("id") Long id,@RequestParam("rating") int rating,@RequestParam("comment") String comment, Principal principal){
 
 		Reviews review = new Reviews(); //crea oggetto review
 		String LoggedUser = principal.getName();
@@ -64,6 +64,7 @@ public class MovieController {
 		review.setComment(comment); //passa all'oggetto il commento (da salvare)
 		review.setMovieId(id); // id del movie a cui lo sta associando(da vedere se serve)
 		review.setComment_by_user(LoggedUser); //mi ricavo l'user che ha commentato
+		review.setRating(rating); //salvo il rating messo dall'utente
 
 		reviewsRepository.save(review);
 
@@ -140,9 +141,12 @@ public class MovieController {
 	public String getMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", this.movieRepository.findById(id).get());
 
-		model.addAttribute("review", this.reviewsRepository.findAll());
+		model.addAttribute("review", this.reviewsRepository.findByMovieId(id));
 		return "movie.html";
 	}
+
+
+
 	/* ========================================================= */
 
 	@GetMapping("/movie")
