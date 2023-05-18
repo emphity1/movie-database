@@ -55,9 +55,12 @@
             <h3 class="reviews-text">Recensioni</h3>
             <ul class="comment-list">
                 <li th:each="review : ${review}">
-                    <span th:text="${review.comment_by_user}">User</span>
-					Valutazione <p th:text="${review.rating}">Commento</p>
+                    <div class="rating-wrapper">
+                        <p><span>User: </span><span th:text="${review.comment_by_user}">User</span></p> <p><span>Voto: </span><span th:text="${review.rating}">rating</span></p>
+                    </div>
+                    <hr>
                     <p th:text="${review.comment}">Commento</p>
+                    <p class="delete-comment" data-comment-id="${review.comment_id}">Elimina</p>
                 </li>
             </ul>
         </div>
@@ -65,7 +68,7 @@
             <h3>Aggiungi una recensione</h3>
             <form class="comment-placeholder" th:action="@{'/movie/' + ${id} + '/saveComment'}" method="post">
                 <input th:value="${comment}" name="comment" placeholder="Scrivi la tua recensione" required>
-                <input th:value="${rating}" type="number" name="rating" min="1" max="10" placeholder="Valutazione"> 1-10 <!--required-->
+                <input th:value="${rating}" type="number" name="rating" min="1" max="10" placeholder="Valutazione(1-10)" required> 
                 <button class="btn-send-review" type="submit">Invia recensione</button>
             </form>
         </div>

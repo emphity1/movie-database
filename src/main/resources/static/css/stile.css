@@ -11,7 +11,12 @@ a {
   text-decoration: none;
 }
 
+
+/* ===========================================================*/
 /*  ================= Stili navbar  =======================  */
+/* ==========================================================*/
+
+
 .navbar {
   background-color: #f8f9fa;
   padding: 10px;
@@ -28,7 +33,11 @@ a {
   margin-right: auto;
 }
 
-/* Stili per i contenitori principali */
+/* ==========================================================================*/
+/*  ===================  Stili per i contenitori principali ================ */
+/* ==========================================================================*/
+
+
 .container {
   text-align: center;
   padding-top: 10em;
@@ -47,7 +56,9 @@ p {
   font-size: 20px;
 }
 
+/* =========================================================================*/
 /* ============ Stili per i form di registrazione e accesso  ==============*/
+/* ========================================================================*/
 
 
 #password,
@@ -100,8 +111,11 @@ p {
 }
 
 
+/* =========================================================================*/
+/* ======================= Stili per la lista dei film ==================== */
+/* =========================================================================*/
 
-/* ======================= Stili per la lista dei film ===================== */
+
 .text-film {
   text-align: center;
   padding-top: 1em;
@@ -128,7 +142,9 @@ ul.movie-list {
   color: blue;
 }
 
+/* ===================================================================*/
 /* =============== Stili per la lista degli artisti  ================*/
+/* ==================================================================*/
 .text-artists {
   text-align: center;
   padding-top: 1em;
@@ -157,7 +173,13 @@ ul.artists-list {
   color: blue;
 }
 
+
+
+/* ===========================================================================*/
 /* =========== Stili per la pagina dei risultati della ricerca ============== */
+/* ===========================================================================*/
+
+
 .movie-title {
   text-decoration: none;
   color: black;
@@ -191,7 +213,10 @@ ul.movie-title {
   margin: 0;
 }
 
+
+/*  ========================================================*/
 /*  ======== Stili per la pagina degli artisti  ============*/
+/*  ========================================================*/
 
 .artist-details {
   margin-bottom: 20px;
@@ -219,7 +244,11 @@ ul.movie-title {
   height: auto;
 }
 
-/* Stili per la sezione dei film */
+/*  =================================================================*/
+/* ==========  Stili per la sezione dei film  ====================== */
+/*  =================================================================*/
+
+
 .image-box {
   width: 300px;
   height: 400px;
@@ -237,7 +266,21 @@ ul.movie-title {
   object-position: center center;
 }
 
-/* Stili per le recensioni */
+
+
+/*  =========================================================*/
+/* ================ Stili per le recensioni  =============== */
+/*  =========================================================*/
+
+.delete-comment {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: red;
+  font-size: 15px;
+}
+
 .reviews-text {
   font-size: 24px;
   font-weight: bold;
@@ -256,6 +299,7 @@ ul.movie-title {
   padding: 10px;
   margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .comment-list li p {
@@ -286,7 +330,6 @@ ul.movie-title {
 }
 
 .btn-send-review {
-  padding: 10px 20px;
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -303,11 +346,21 @@ ul.movie-title {
   gap: 10px;
 }
 
-.comment-placeholder input[type="text"],
-.comment-placeholder button {
+.comment-placeholder input[type="text"]{
   padding: 5px 15px;
   margin-right: 0px;
   width: 100%;
+  display: inline-block;
+}
+.comment-placeholder input[type="number"],
+.comment-placeholder button {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.comment-placeholder button {
+  width: auto;
+  
 }
 
 .comment-placeholder button {
@@ -325,9 +378,15 @@ ul.movie-title {
   width: 150px;
 }
 
+
+.rating {
+  float: right;
+}
+
+
+
 /* Media query per la responsività */
 @media (max-width: 768px) {
-  /* Aggiungi qui le modifiche per la responsività */
   .container {
     padding-top: 5em;
   }

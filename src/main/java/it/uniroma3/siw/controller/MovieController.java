@@ -50,7 +50,10 @@ public class MovieController {
 	@Autowired
 	private ReviewsService reviewsService;
 
+
+	/* ================================================================== */
 	/* ====================== GESTIONE COMMENTI ========================= */
+	/* ================================================================== */
 
 	@PostMapping(value = "/movie/{id}/saveComment")
 	public String saveReview(@PathVariable("id") Long id,@RequestParam("rating") int rating,@RequestParam("comment") String comment, Principal principal){
@@ -73,11 +76,7 @@ public class MovieController {
 	}
 
 
-
-
-
-
-	/* =========================================================== */
+	/* ====================================================================*/
 
 	@GetMapping(value="/admin/formNewMovie")
 	public String formNewMovie(Model model) {
@@ -135,19 +134,23 @@ public class MovieController {
 		}
 	}
 
-
+	/* =======================================================================================*/
 	/* ======   QUI SOTTO implemento anche l'aggiunte dei commenti del film  =================*/
+	/* =======================================================================================*/
+
+
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("movie", this.movieRepository.findById(id).get());
 
+		//fa si che ogni film visualizzi i commenti propri
 		model.addAttribute("review", this.reviewsRepository.findByMovieId(id));
 		return "movie.html";
 	}
 
 
 
-	/* ========================================================= */
+	/* =======================================================================================*/
 
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
