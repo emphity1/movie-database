@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 
+<!-- 
+
+Pagina di appoggio per visualizzare il film appena aggiunto
+
+-->
 <head>
 	<title>
 		SIW MOVIE DATABASE
@@ -51,34 +56,6 @@
             </div>
             <div th:unless="${movie}">Non esiste</div>
         </div>
-        <div class="comment-section">
-            <h3 class="reviews-text">Recensioni</h3>
-            <ul class="comment-list">
-                <li th:each="review : ${review}">
-                    <div class="rating-wrapper">
-                        <p>
-                            <span>User: </span>
-                            <span th:text="${review.comment_by_user}">User</span>
-                        </p>
-                        <p>
-                            <span>Voto: </span>
-                            <span th:text="${review.rating}">rating</span>
-                        </p>
-                    </div>
-                    <hr>
-                    <p th:text="${review.comment}">Commento</p>
-                    <a href="#" class="delete-link">Elimina</a>
-                </li>
-            </ul>
-        </div>
-        <div class="review-section">
-            <h3>Aggiungi una recensione</h3>
-            <form class="comment-placeholder" th:action="@{'/movie/' + ${id} + '/saveComment'}" method="post">
-                <input th:value="${comment}" name="comment" placeholder="Scrivi la tua recensione" required>
-                <input th:value="${rating}" type="number" name="rating" min="1" max="10" placeholder="Valutazione(1-10)" required>
-                <button class="btn-send-review" type="submit">Invia recensione</button>
-            </form>
-        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -93,63 +70,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Film</title>
-	<link rel="stylesheet" href="/css/stile.css" />
-</head>
-
-<body>
-	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${#request.userPrincipal}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-
-
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-    <h1>Dettagli Film</h1>
-    <div th:if="${movie}">
-        <span th:text="${movie.title}">Up!</span>
-        <span th:text="'(' + ${movie.year} + ')'">2000</span>
-        <span><img width="5%" th:src=${movie.urlImage} /></span>
-    </div>
-    <div th:unless="${movie}">Non esiste</div>
-  </body>
-
-</html>
-
-
--->

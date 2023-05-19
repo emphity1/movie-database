@@ -291,6 +291,7 @@ ul.movie-title {
 .comment-list {
   list-style-type: none;
   padding: 0;
+  position: relative;
 }
 
 .comment-list li {
@@ -360,7 +361,6 @@ ul.movie-title {
 
 .comment-placeholder button {
   width: auto;
-  
 }
 
 .comment-placeholder button {
@@ -381,6 +381,14 @@ ul.movie-title {
 
 .rating {
   float: right;
+}
+
+.delete-link {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  color: red;
+  text-decoration: none;
 }
 
 

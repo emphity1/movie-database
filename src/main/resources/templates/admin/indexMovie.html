@@ -58,6 +58,9 @@
                     <span th:text="${review.comment_by_user}">User</span>
 					Valutazione <p th:text="${review.rating}">Commento</p>
                     <p th:text="${review.comment}">Commento</p>
+                    <li class="nav-item ml-auto" th:if="${#request.userPrincipal} and ${#request.isUserInRole('ADMIN')}">
+                        aaa<a class="nav-link" href="/logout">Logout</a>
+                    </li>
                 </li>
             </ul>
         </div>

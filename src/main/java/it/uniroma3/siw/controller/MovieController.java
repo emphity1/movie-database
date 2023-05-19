@@ -29,6 +29,7 @@ import it.uniroma3.siw.repository.MovieRepository;
 import it.uniroma3.siw.repository.ReviewsRepository;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.ReviewsService;
+import javax.swing.JOptionPane;
 
 @Controller
 public class MovieController {
@@ -73,6 +74,23 @@ public class MovieController {
 
 		//da reindirizzare sulla pagina con il commento in questione GIA pubblicato sulla pagina
 		return "redirect:/movie/" + id;
+	}
+
+	/* ==================== Elimina commenti ==============================*/
+
+
+	@PostMapping("/admin/delete-comment/{id}/{reviewId}")
+	public String deleteComment(@PathVariable("id") Long movieId, @PathVariable("reviewId") Long reviewId){
+		String msg = "Il commento e' stato eliminato";
+		String avviso = "Avviso";
+
+		Reviews review = reviewsRepository.findById(reviewId).orElse(null);
+		if(review != null){
+			reviewsRepository.delete(review);
+			JOptionPane.showMessageDialog(null, msg, avviso, JOptionPane.INFORMATION_MESSAGE);
+		}
+
+		return "redirect:/admin/indexMovie/" + movieId;
 	}
 
 
@@ -128,7 +146,7 @@ public class MovieController {
 		if (!bindingResult.hasErrors()) {
 			this.movieRepository.save(movie); 
 			model.addAttribute("movie", movie);
-			return "movie.html";
+			return "movieAdded.html"; //movie -> movies
 		} else {
 			return "admin/formNewMovie.html"; 
 		}
@@ -151,6 +169,28 @@ public class MovieController {
 
 
 	/* =======================================================================================*/
+	/* Costruisco un percorso solo per gli ADMIN */
+	/* ----------------------------------------- */
+
+
+	@GetMapping("/admin/movieList")
+	public String getMovieAdmin(Model model) {
+		model.addAttribute("movies", this.movieRepository.findAll());
+		return "/admin/indexMovies.html";
+	}
+
+
+
+	@GetMapping("/admin/movie/{id}")
+	public String getMovieAdmin(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("movie", this.movieRepository.findById(id).get());
+
+		//fa si che ogni film visualizzi i commenti propri
+		model.addAttribute("review", this.reviewsRepository.findByMovieId(id));
+		return "/admin/manageMovieReview.html";
+	}
+
+	/* ====================================================================================== */
 
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
