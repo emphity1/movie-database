@@ -63,7 +63,6 @@ public class MovieController {
 	@PostMapping(value = "/movie/{id}/saveComment")
 	public String saveReview(@PathVariable("id") Long id,@RequestParam("rating") int rating,@RequestParam("comment") String comment, Principal principal,HttpServletRequest request){
 		
-		
 		String referer = request.getHeader("Referer");//uso HttpServletREquest per aggiornare la pagina
 		Reviews review = new Reviews(); //crea oggetto review
 		String LoggedUser = principal.getName();
@@ -72,7 +71,6 @@ public class MovieController {
 		if(reviewsService.hasReviewed(LoggedUser, id)){ //se l'utente è ha gia commentato ripartalo all'inizio
 			return "/index.html"; // da finire
 		}
-
 
 		review.setComment(comment); //passa all'oggetto il commento (da salvare)
 		review.setMovieId(id); // id del movie a cui lo sta associando(da vedere se serve)
@@ -85,8 +83,9 @@ public class MovieController {
 		return "redirect:" + referer;
 	}
 
-	/* ==================== Elimina commenti ==============================*/
 
+
+	/* ======	 Elimina commenti	======*/
 
 	@PostMapping(value = "/admin/delete-comment/{reviewId}")
 	public String deleteComment(@PathVariable("reviewId") Long reviewId, HttpServletRequest request){
@@ -102,8 +101,31 @@ public class MovieController {
 	}
 
 
-	/* ===============================================================================*/
-	/* ===============================================================================*/
+	/* ================================================================== */
+	/* ======================   ELIMINAZIONE FILM   ===================== */
+	/* ================================================================== */
+
+
+	@PostMapping(value = "/admin/delete-film/{id}")
+	public String deleteMovie(@PathVariable("id") Long movieId){
+
+		Movie movie = movieRepository.findById(movieId).get();
+		movieRepository.delete(movie);
+
+		return "redirect:/admin/movieList";
+	}
+
+
+
+
+
+
+
+
+
+
+	/* ================================================================== */
+	/* ================================================================== */
 
 	@GetMapping(value="/admin/formNewMovie")
 	public String formNewMovie(Model model) {

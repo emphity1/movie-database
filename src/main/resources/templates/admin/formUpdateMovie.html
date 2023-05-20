@@ -55,27 +55,38 @@
     <h1 class="heading">Aggiorna film</h1>
     <div class="movie-details" th:if="${movie}">
       <div class="movie-info">
-        <span class="movie-title" th:text="${movie.title}">Up!</span>
-        <span class="movie-year" th:text="'(' + ${movie.year} + ')'">2000</span>
+        <span class="movie-title" th:text="${movie.title}"></span>
+        <span class="movie-year" th:text="'(' + ${movie.year} + ')'"></span>
       </div>
+
       <div class="director-info" th:if="${movie.director}">
         <span>Regista:</span>
         <span th:text="${movie.director.name} + ' ' + ${movie.director.surname}">Steven Spielberg</span>
         <a class="update-director-link" th:href="@{'/admin/addDirector/' + ${movie.id}}">Modifica regista</a>
       </div>
+
       <div class="director-info" th:unless="${movie.director}">
         <a class="add-director-link" th:href="@{'/admin/addDirector/' + ${movie.id}}">
           <div class="add-director-box">Aggiungi regista</div>
         </a>
       </div>
+
       <div class="actors">
         <span>Attori:</span>
         <div th:each="actor: ${movie.actors}">
           <span th:text="${actor.name} + ' ' + ${actor.surname}">Al Pacino</span>
         </div>
+
         <a class="update-actors-link" th:href="@{'/admin/updateActors/' + ${movie.id}}">
 		  <div class="modify-actors">Modifica</div>
         </a>
+      </div>
+
+	  <div class="delete-film-text">
+        <span>Elimina: </span><span class="movie-title" th:text="${movie.title}"></span><span class="movie-year" th:text="'(' + ${movie.year} + ')'"></span>
+		<form  class="delete-btn-box" th:action="@{'/admin/delete-film/' + ${movie.id}}" method="post">
+			<button type="submit" class="delete-film-btn">Elimina</button>
+		</form>
       </div>
     </div>
     <div class="no-movie" th:unless="${movie}">Film non esistente</div>
