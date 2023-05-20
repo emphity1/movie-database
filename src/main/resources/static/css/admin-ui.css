@@ -9,7 +9,9 @@ a {
 	text-decoration: none; 
 }
 
-
+.logged-as-text{
+  margin-right: 20px;
+}
 
 .navbar {
     background-color: #f8f9fa; /* Cambia il colore di sfondo */

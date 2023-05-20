@@ -16,6 +16,9 @@ a {
 /*  ================= Stili navbar  =======================  */
 /* ==========================================================*/
 
+.logged-as-text{
+  margin-right: 20px;
+}
 
 .navbar {
   background-color: #f8f9fa;
@@ -40,7 +43,7 @@ a {
 
 .container {
   text-align: center;
-  padding-top: 10em;
+  padding-top: 2em;
 }
 
 p {
@@ -85,7 +88,7 @@ p {
 }
 
 .login-container {
-  padding: 4em;
+  padding: 2em;
   margin: 0em;
 }
 

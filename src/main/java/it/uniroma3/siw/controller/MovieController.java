@@ -61,22 +61,28 @@ public class MovieController {
 	/* ================================================================== */
 
 	@PostMapping(value = "/movie/{id}/saveComment")
-	public String saveReview(@PathVariable("id") Long id,@RequestParam("rating") int rating,@RequestParam("comment") String comment, Principal principal){
-
+	public String saveReview(@PathVariable("id") Long id,@RequestParam("rating") int rating,@RequestParam("comment") String comment, Principal principal,HttpServletRequest request){
+		
+		
+		String referer = request.getHeader("Referer");//uso HttpServletREquest per aggiornare la pagina
 		Reviews review = new Reviews(); //crea oggetto review
 		String LoggedUser = principal.getName();
+
+
 		if(reviewsService.hasReviewed(LoggedUser, id)){ //se l'utente è ha gia commentato ripartalo all'inizio
 			return "/index.html"; // da finire
 		}
+
+
 		review.setComment(comment); //passa all'oggetto il commento (da salvare)
 		review.setMovieId(id); // id del movie a cui lo sta associando(da vedere se serve)
 		review.setComment_by_user(LoggedUser); //mi ricavo l'user che ha commentato
 		review.setRating(rating); //salvo il rating messo dall'utente
-
+		//salvo
 		reviewsRepository.save(review);
 
 		//da reindirizzare sulla pagina con il commento in questione GIA pubblicato sulla pagina
-		return "redirect:/movie/" + id;
+		return "redirect:" + referer;
 	}
 
 	/* ==================== Elimina commenti ==============================*/
@@ -84,19 +90,14 @@ public class MovieController {
 
 	@PostMapping(value = "/admin/delete-comment/{reviewId}")
 	public String deleteComment(@PathVariable("reviewId") Long reviewId, HttpServletRequest request){
-		//String msg = "Il commento e' stato eliminato";
-		//String avviso = "Avviso";
-
+		//uso HttpServletREquest per aggiornare la pagina
 		String referer = request.getHeader("Referer");
 		Reviews review = reviewsRepository.findById(reviewId).orElse(null);
 		System.out.println(reviewId);
-		//Long movieId = reviewsRepository.findMovieIdByreviewId(reviewId);
-		//Long movieId = reviewsRepository.findMovieIdByreviewId(reviewId);
-		if(review != null){
+		if(review != null){ //check se il commento esiste
 			reviewsRepository.delete(review);
-			return "redirect:" + referer;
+			return "redirect:" + referer;//reindirizza sulla pagina dove stavi
 		}
-		System.out.println("Il commento NON è stato eliminato");
 		return "redirect:" + referer;
 	}
 
