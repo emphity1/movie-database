@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html>
 
@@ -24,7 +23,7 @@
 	<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 		<ul class="navbar-nav elenco">
 			<li class="nav-item elenco-film">
-				<a class="nav-link" href="/movieDefaultUser">Elenco Film</a>
+				<a class="nav-link" href="/movie">Elenco Film</a>
 			</li>
 			<li class="nav-item elenco-artisti">
 				<a class="nav-link" href="/artist">Elenco Artisti</a>
@@ -37,26 +36,27 @@
 			<li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
 				<span class="nav-link logged-as-text">Logged as: <span th:text="${#request.userPrincipal.name}"></span></span>
 			</li>
-			
 		  <li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
 			<a class="nav-link" href="/logout">Logout</a>
 		  </li>
-
-
 		</ul>
 	  </div>
 </nav>
 
-<h1 class="text-artists">Artisti</h1>
-
-<div th:if="${artists == null or artists.isEmpty()}">Non ci sono artisti nel sistema</div>
-<ul class="artists-list">
-    <li th:each="artist : ${artists}">
-        <a th:href="@{'/artist/' + ${artist.id}}" th:text="${artist.name + ' ' + artist.surname}">Dino Risi</a>
-    </li>
-</ul>
-
-
+<h1 class="text-film">Artista</h1>
+<div th:if="${artist}" class="artist-details">
+    <h2 th:text="${artist.name + ' ' + artist.surname}">Dino Risi</h2>
+    <div class="artist-info">
+        <span class="birth-date" th:text="'Data di nascita: ' + ${artist.dateOfBirth}">20/20/2000</span>
+    </div>
+    <div class="image-box">
+        <img class="artist-image" th:src="${artist.urlOfPicture}" alt="Immagine dell'artista">
+    </div>
+    <form th:action="@{'/admin/delete-artist/' + ${artist.id}}" method="post">
+        <button type="submit" class="delete-button">Elimina</button>
+    </form>
+</div>
+<div th:unless="${artist}">Non esiste</div>
 
 
 
@@ -66,20 +66,6 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

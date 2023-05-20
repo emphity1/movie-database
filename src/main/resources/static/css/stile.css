@@ -148,6 +148,19 @@ ul.movie-list {
 /* ===================================================================*/
 /* =============== Stili per la lista degli artisti  ================*/
 /* ==================================================================*/
+
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+
 .text-artists {
   text-align: center;
   padding-top: 1em;

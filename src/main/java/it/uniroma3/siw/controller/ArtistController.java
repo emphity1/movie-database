@@ -17,6 +17,39 @@ public class ArtistController {
 	@Autowired 
 	private ArtistRepository artistRepository;
 
+
+
+
+	/* ================================================================== */
+	/* ===============     ELIMINAZIONE ARISTA     ====================== */
+	/* ================================================================== */
+
+
+	@GetMapping("/admin/manage-artist")
+	public String getArtistsAdmin(Model model) {
+		model.addAttribute("artists", this.artistRepository.findAll());
+		return "/admin/manageArtist.html";
+	}
+
+	@GetMapping("/admin/artist/{id}")
+	public String getArtistAdmin(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("artist", this.artistRepository.findById(id).get());
+		return "/admin/manageArtistAdmin.html"; //mangeArtistAdmin visualizza la lista degli artisti
+	}
+
+	@PostMapping("/admin/delete-artist/{id}")
+	public String deleteArtist(@PathVariable("id") Long artistId){
+		artistRepository.deleteById(artistId);
+
+		return "redirect:/admin/manage-artist";
+	}
+
+
+
+	/* ================================================================== */
+	/* ================================================================== */
+
+
 	@GetMapping(value="/admin/formNewArtist")
 	public String formNewArtist(Model model) {
 		model.addAttribute("artist", new Artist());

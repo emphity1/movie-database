@@ -1,5 +1,8 @@
 
 
+
+
+
 <!DOCTYPE html>
 <html>
 
@@ -52,7 +55,7 @@
 <div th:if="${artists == null or artists.isEmpty()}">Non ci sono artisti nel sistema</div>
 <ul class="artists-list">
     <li th:each="artist : ${artists}">
-        <a th:href="@{'/artist/' + ${artist.id}}" th:text="${artist.name + ' ' + artist.surname}">Dino Risi</a>
+        <a th:href="@{'/admin/artist/' + ${artist.id}}" th:text="${artist.name + ' ' + artist.surname}">Dino Risi</a>
     </li>
 </ul>
 
