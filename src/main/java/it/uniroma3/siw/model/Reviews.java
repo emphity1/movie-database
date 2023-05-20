@@ -11,7 +11,7 @@ public class Reviews {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer reviewId;
+	private Long reviewId;
 
 
 	@Column(name = "comment")
@@ -87,11 +87,11 @@ public class Reviews {
 	/* =================	 ALTRI GETTERS AND SETTERS	 ==================== */
 
 
-	public Integer getReviewId() {
+	public Long getReviewId() {
 		return this.reviewId;
 	}
 
-	public void setReviewId(Integer reviewId) {
+	public void setReviewId(Long reviewId) {
 		this.reviewId = reviewId;
 	}
 

@@ -7,12 +7,14 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,8 @@ import it.uniroma3.siw.repository.MovieRepository;
 import it.uniroma3.siw.repository.ReviewsRepository;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.ReviewsService;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.swing.JOptionPane;
 
 @Controller
@@ -64,7 +68,6 @@ public class MovieController {
 		if(reviewsService.hasReviewed(LoggedUser, id)){ //se l'utente è ha gia commentato ripartalo all'inizio
 			return "/index.html"; // da finire
 		}
-
 		review.setComment(comment); //passa all'oggetto il commento (da salvare)
 		review.setMovieId(id); // id del movie a cui lo sta associando(da vedere se serve)
 		review.setComment_by_user(LoggedUser); //mi ricavo l'user che ha commentato
@@ -79,18 +82,22 @@ public class MovieController {
 	/* ==================== Elimina commenti ==============================*/
 
 
-	@PostMapping("/admin/delete-comment/{id}/{reviewId}")
-	public String deleteComment(@PathVariable("id") Long movieId, @PathVariable("reviewId") Long reviewId){
-		String msg = "Il commento e' stato eliminato";
-		String avviso = "Avviso";
+	@PostMapping(value = "/admin/delete-comment/{reviewId}")
+	public String deleteComment(@PathVariable("reviewId") Long reviewId, HttpServletRequest request){
+		//String msg = "Il commento e' stato eliminato";
+		//String avviso = "Avviso";
 
+		String referer = request.getHeader("Referer");
 		Reviews review = reviewsRepository.findById(reviewId).orElse(null);
+		System.out.println(reviewId);
+		//Long movieId = reviewsRepository.findMovieIdByreviewId(reviewId);
+		//Long movieId = reviewsRepository.findMovieIdByreviewId(reviewId);
 		if(review != null){
 			reviewsRepository.delete(review);
-			JOptionPane.showMessageDialog(null, msg, avviso, JOptionPane.INFORMATION_MESSAGE);
+			return "redirect:" + referer;
 		}
-
-		return "redirect:/admin/indexMovie/" + movieId;
+		System.out.println("Il commento NON è stato eliminato");
+		return "redirect:" + referer;
 	}
 
 

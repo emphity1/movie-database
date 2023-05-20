@@ -42,7 +42,7 @@
 
     <div class="film-section">
         <div class="film-details">
-            <h1 class="film-details-text">Dettagli Film</h1>
+            <h1 class="film-details-text">Dettagli  Film</h1>
             <div th:if="${movie}">
                 <h2 th:text="${movie.title}">Up!</h2>
                 <div class="image-box">
@@ -67,7 +67,9 @@
                     </div>
                     <hr>
                     <p th:text="${review.comment}">Commento</p>
-                    <a th:href="@{'/admin/delete-comment/' + ${movie.id} + ${review.reviewId}}" class="delete-link">Elimina</a>
+                    <form th:action="@{'/admin/delete-comment/' + ${review.reviewId}}" method="post">
+                        <button type="submit" class="delete-link">Elimina</button>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -80,6 +82,8 @@
             </form>
         </div>
     </div>
+
+    <script src="/js/commentHandler.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

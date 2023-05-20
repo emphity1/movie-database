@@ -20,12 +20,13 @@ public interface ReviewsRepository extends CrudRepository<Reviews, Long>{
      */
 
     @Query(value = "SELECT CASE WHEN EXISTS (SELECT 1 FROM reviews r WHERE r.commented_by_user = :username AND r.movie_id_by_comment= :movieId) THEN true ELSE false END", nativeQuery = true)
-
     boolean existsByCommentedByUserAndMovieIdByComment(@Param("username")String user,@Param("movieId") Long movieId);
 
+
+    //@Query(value = "SELECT movie_id_by_comment FROM reviews WHERE id = :reviewId")
+    //Long findMovieIdByreviewId(@Param("reviewId") Long reviewId);
+
     List<Reviews> findByMovieId(Long movieId);
-
-
     List<Reviews> findByMovieIdOrderByReviewIdDesc(Long movieId);
 
 
