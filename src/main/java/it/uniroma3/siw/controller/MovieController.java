@@ -69,7 +69,7 @@ public class MovieController {
 
 
 		if(reviewsService.hasReviewed(LoggedUser, id)){ //se l'utente è ha gia commentato ripartalo all'inizio
-			return "/index.html"; // da finire
+			return "redirect:" + referer;
 		}
 
 		review.setComment(comment); //passa all'oggetto il commento (da salvare)
