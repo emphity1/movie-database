@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav elenco">
                 <li class="nav-item elenco-film">
-                    <a class="nav-link" href="/moviesDefaultUser">Elenco Film</a>
+                    <a class="nav-link" href="/movieDefaultUser">Elenco Film</a>
                 </li>
                 <li class="nav-item elenco-artisti">
                     <a class="nav-link" href="/artist">Elenco Artisti</a>
@@ -39,13 +39,6 @@
                 <li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
-                <li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
-                    <a class="nav-link" href="/register">Register</a>
-                </li>
-
             </ul>
         </div>
     </nav>
@@ -77,10 +70,11 @@
                     </div>
                     <hr>
                     <p th:text="${review.comment}">Commento</p>
+                    <a href="#" class="delete-link">Elimina</a>
                 </li>
             </ul>
         </div>
-        <div  th:if="${#request.userPrincipal}" class="review-section">
+        <div class="review-section">
             <h3>Aggiungi una recensione</h3>
             <form class="comment-placeholder" th:action="@{'/movie/' + ${id} + '/saveComment'}" method="post">
                 <input th:value="${comment}" name="comment" placeholder="Scrivi la tua recensione" required>
@@ -103,28 +97,3 @@
 
 </html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- trunk-ignore(git-diff-check/error) -->

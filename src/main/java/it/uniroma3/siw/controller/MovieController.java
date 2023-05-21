@@ -117,13 +117,6 @@ public class MovieController {
 
 
 
-
-
-
-
-
-
-
 	/* ================================================================== */
 	/* ================================================================== */
 
@@ -223,6 +216,9 @@ public class MovieController {
 
 	/* ====================================================================================== */
 
+	
+
+
 	@GetMapping("/movie")
 	public String getMovies(Model model) {
 		
@@ -234,12 +230,36 @@ public class MovieController {
 		return "movies.html";
 	}
 
+	/*============================================================== */
+	/* ============== 	ACCESSO ALL'UTENTE  DEFAULT ================ */
+	/*============================================================== */
+
 	// PER FAR ACCEDERE ALL'UTENTE QUALUNQUE LA LISTA DEI FILM
-	@GetMapping("/movieDefaultUser")
+	@GetMapping("/moviesDefaultUser")
 	public String getMovie(Model model) {
 		model.addAttribute("movies", this.movieRepository.findAll());
 		return "moviesDefaultUser.html";
 	}
+
+
+	@GetMapping("/movie/{id}/defaultUser")
+	public String getMovieDefaultUser(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("movie", this.movieRepository.findById(id).get());
+
+		//fa si che ogni film visualizzi i commenti propri
+		model.addAttribute("review", this.reviewsRepository.findByMovieId(id));
+		return "redirect:/movieDefaultUser";
+	}
+
+
+
+
+
+
+
+	/*============================================================== */
+	/*============================================================== */
+	/*============================================================== */
 	
 	@GetMapping("/formSearchMovies")
 	public String formSearchMovies() {

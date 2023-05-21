@@ -24,7 +24,7 @@
 	<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 		<ul class="navbar-nav elenco">
 			<li class="nav-item elenco-film">
-				<a class="nav-link" href="/movieDefaultUser">Elenco Film</a>
+				<a class="nav-link" href="/moviesDefaultUser">Elenco Film</a>
 			</li>
 			<li class="nav-item elenco-artisti">
 				<a class="nav-link" href="/artist">Elenco Artisti</a>
@@ -36,12 +36,16 @@
 		<ul class="navbar-nav">
 			<li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
 				<span class="nav-link logged-as-text">Logged as: <span th:text="${#request.userPrincipal.name}"></span></span>
+			  </li>
+			<li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
+				<a class="nav-link" href="/logout">Logout</a>
 			</li>
-			
-		  <li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
-			<a class="nav-link" href="/logout">Logout</a>
-		  </li>
-
+			<li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
+				<a class="nav-link" href="/login">Login</a>
+			</li>
+			<li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
+				<a class="nav-link" href="/register">Register</a>
+			</li>
 
 		</ul>
 	  </div>
