@@ -15,6 +15,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name="Movie")
 public class Movie {
@@ -31,7 +33,12 @@ public class Movie {
     @Max(2023)
 	private Integer year;
     
-	private String urlImage;
+	@Type(type="org.hibernate.type.BinaryType")
+	@Column(name = "image", columnDefinition = "BYTEA")
+	private byte[] image;
+
+
+
 	
 	@ManyToOne
 	private Artist director;
@@ -48,7 +55,21 @@ public class Movie {
 
 	/* ============================================= */
 
+	public byte[] getImage() {
+		return this.image;
+	}
 
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	public List<Reviews> getReviews() {
+		return this.reviews;
+	}
+
+	public void setReviews(List<Reviews> reviews) {
+		this.reviews = reviews;
+	}
 	
 	public Long getId() {
 		return id;
@@ -73,13 +94,8 @@ public class Movie {
 		this.year = year;
 	}
 	
-	public String getUrlImage() {
-		return urlImage;
-	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
-	}
+
 
 	public Artist getDirector() {
 		return director;

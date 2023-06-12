@@ -48,8 +48,8 @@
             <h1 class="film-details-text">Dettagli Film</h1>
             <div th:if="${movie}">
                 <h2 th:text="${movie.title}">Up!</h2>
-                <div class="image-box">
-                    <img th:src="${movie.urlImage}" alt="Poster del film">
+                <div class="image-box" th:if="${imageBase64}">
+                    <img th:src="@{'data:image/jpeg;base64,' + ${imageBase64}}" alt="Poster del film">
                 </div>
             </div>
             <div th:unless="${movie}">Non esiste</div>

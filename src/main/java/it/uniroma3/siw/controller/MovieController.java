@@ -1,7 +1,9 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.controller.validator.MovieValidator;
 import it.uniroma3.siw.model.Artist;
@@ -164,15 +167,21 @@ public class MovieController {
 	}
 
 	@PostMapping("/admin/movie")
-	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
+	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model,@RequestParam("image") MultipartFile imageFile) {
 		
 		this.movieValidator.validate(movie, bindingResult);
 		if (!bindingResult.hasErrors()) {
 			this.movieRepository.save(movie); 
 			model.addAttribute("movie", movie);
-			return "movieAdded.html"; //movie -> movies
-		} else {
-			return "admin/formNewMovie.html"; 
+		}   try {
+			byte[] imageBytes = imageFile.getBytes();
+			movie.setImage(imageBytes);
+			this.movieRepository.save(movie);
+			model.addAttribute("movie", movie);
+			return "movieAdded.html";
+		} catch (IOException e) {
+			// Gestisci l'errore di lettura dell'immagine come desiderato
+			return "admin/formNewMovie.html";
 		}
 	}
 
@@ -183,10 +192,15 @@ public class MovieController {
 
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("movie", this.movieRepository.findById(id).get());
-
-		//fa si che ogni film visualizzi i commenti propri
+		Movie movie = this.movieRepository.findById(id).orElse(null);
+		model.addAttribute("movie", movie);
+	
+		// Fa sì che ogni film visualizzi i commenti propri
 		model.addAttribute("review", this.reviewsRepository.findByMovieId(id));
+	
+		if (movie != null && movie.getImage() != null && movie.getImage().length > 0) {
+			model.addAttribute("imageBase64", Base64.getEncoder().encodeToString(movie.getImage()));
+		}
 		return "movie.html";
 	}
 
@@ -207,10 +221,13 @@ public class MovieController {
 
 	@GetMapping("/admin/movie/{id}")
 	public String getMovieAdmin(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("movie", this.movieRepository.findById(id).get());
-
-		//fa si che ogni film visualizzi i commenti propri
+		Movie movie = this.movieRepository.findById(id).orElse(null);
+		model.addAttribute("movie", movie);
+		// Fa sì che ogni film visualizzi i commenti propri
 		model.addAttribute("review", this.reviewsRepository.findByMovieId(id));
+		if (movie != null && movie.getImage() != null && movie.getImage().length > 0) {
+			model.addAttribute("imageBase64", Base64.getEncoder().encodeToString(movie.getImage()));
+		}
 		return "/admin/manageMovieReview.html";
 	}
 
