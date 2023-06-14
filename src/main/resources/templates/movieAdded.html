@@ -47,19 +47,20 @@ Pagina di appoggio per visualizzare il film appena aggiunto
             </ul>
         </div>
     </nav>
+
     <div class="film-section">
         <div class="film-details">
             <h1 class="film-details-text">Dettagli Film</h1>
             <div th:if="${movie}">
                 <h2 th:text="${movie.title}">Up!</h2>
-                <div class="image-box" th:if="${imageBase64}">
-                    <img th:src="@{'data:image/jpeg;base64,' + ${imageBase64}}" alt="Poster del film">
+                <p>Anno: <span th:text="${movie.year}"></span></p>
+                <div class="image-box">
+                    <img th:src="@{${movie.photoPath + movie.fileName}}" alt="Movie Photo">
                 </div>
             </div>
             <div th:unless="${movie}">Non esiste</div>
         </div>
     </div>
-    
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

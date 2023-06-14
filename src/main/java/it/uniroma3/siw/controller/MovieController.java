@@ -3,9 +3,14 @@ package it.uniroma3.siw.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Set;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 import javax.validation.Valid;
 
@@ -167,23 +172,41 @@ public class MovieController {
 	}
 
 	@PostMapping("/admin/movie")
-	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model,@RequestParam("image") MultipartFile imageFile) {
-		
-		this.movieValidator.validate(movie, bindingResult);
-		if (!bindingResult.hasErrors()) {
-			this.movieRepository.save(movie); 
-			model.addAttribute("movie", movie);
-		}   try {
-			byte[] imageBytes = imageFile.getBytes();
-			movie.setImage(imageBytes);
-			this.movieRepository.save(movie);
-			model.addAttribute("movie", movie);
-			return "movieAdded.html";
-		} catch (IOException e) {
-			// Gestisci l'errore di lettura dell'immagine come desiderato
-			return "admin/formNewMovie.html";
-		}
-	}
+public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model, @RequestParam("photo") MultipartFile photo) {
+    this.movieValidator.validate(movie, bindingResult);
+    if (!bindingResult.hasErrors()) {
+    }
+    try {
+        // Leggi i byte dell'immagine
+        this.movieRepository.save(movie);
+        byte[] photoBytes = photo.getBytes();
+
+        // Salva i byte dell'immagine nel campo 'photo' dell'oggetto 'movie'
+        movie.setPhoto(photoBytes);
+
+        // Salva l'immagine sul disco
+        String fileName = movie.getId() + "_" + photo.getOriginalFilename();
+        movie.setFileName(fileName);
+
+		String photoPath = "/images/movie_imgs/";
+        movie.setPhotoPath(photoPath);
+
+		String DirphotoPath = "/home/dima/Desktop/movie-db-backup/copia/movie-database-master/src/main/resources/static/images/movie_imgs/";
+        String fullFilePathName = DirphotoPath + fileName;
+
+        Path path = Paths.get(fullFilePathName);
+        Files.write(path, photoBytes);
+
+        this.movieRepository.save(movie);
+
+        model.addAttribute("movie", movie);
+        return "movieAdded.html";
+    } catch (IOException e) {
+        // Gestisci l'errore in caso di problemi durante il salvataggio dell'immagine
+        return "redirect:/error";
+    }
+}
+
 
 	/* =======================================================================================*/
 	/* ======   QUI SOTTO implemento anche l'aggiunte dei commenti del film  =================*/
@@ -192,15 +215,10 @@ public class MovieController {
 
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
-		Movie movie = this.movieRepository.findById(id).orElse(null);
-		model.addAttribute("movie", movie);
-	
-		// Fa sì che ogni film visualizzi i commenti propri
+		model.addAttribute("movie", this.movieRepository.findById(id).get());
+
+		//fa si che ogni film visualizzi i commenti propri
 		model.addAttribute("review", this.reviewsRepository.findByMovieId(id));
-	
-		if (movie != null && movie.getImage() != null && movie.getImage().length > 0) {
-			model.addAttribute("imageBase64", Base64.getEncoder().encodeToString(movie.getImage()));
-		}
 		return "movie.html";
 	}
 
@@ -221,13 +239,10 @@ public class MovieController {
 
 	@GetMapping("/admin/movie/{id}")
 	public String getMovieAdmin(@PathVariable("id") Long id, Model model) {
-		Movie movie = this.movieRepository.findById(id).orElse(null);
-		model.addAttribute("movie", movie);
-		// Fa sì che ogni film visualizzi i commenti propri
+		model.addAttribute("movie", this.movieRepository.findById(id).get());
+
+		//fa si che ogni film visualizzi i commenti propri
 		model.addAttribute("review", this.reviewsRepository.findByMovieId(id));
-		if (movie != null && movie.getImage() != null && movie.getImage().length > 0) {
-			model.addAttribute("imageBase64", Base64.getEncoder().encodeToString(movie.getImage()));
-		}
 		return "/admin/manageMovieReview.html";
 	}
 

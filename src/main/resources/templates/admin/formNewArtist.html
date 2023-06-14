@@ -57,7 +57,7 @@
 
 <div class="container">
     <h1 class="heading">Aggiungi un artista</h1>
-    <form class="artist-form" th:action="@{/admin/artist}" method="POST" th:object="${artist}">
+    <form class="artist-form" th:action="@{/admin/artist}" method="POST" th:object="${artist}" enctype="multipart/form-data">
       <div class="error-message">
         <span th:text="${messaggioErrore}">Errore</span>
       </div>
@@ -77,9 +77,9 @@
         <span><input type="date" th:field="${artist.dateOfBirth}" /></span>
       </div>
 
-      <div class="form-field">
-        <label>Fotografia (url):</label>
-        <span><input type="text" th:field="${artist.urlOfPicture}" /></span>
+      <div class="form-field foto-text-artist">
+        <label for="photo">Foto:</label>
+        <input type="file"th:name="photo" th:id="photo" accept="image/*" >
       </div>
 
       <div class="submit-button">

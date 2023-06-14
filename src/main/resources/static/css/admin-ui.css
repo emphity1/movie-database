@@ -56,10 +56,59 @@ a {
 
 /*---------- indexAdmin.html ---------*/
 
-.text-admin-panel{
-    text-align: left;
-    padding-top: 1em;
+.container-admin-panel {
+  text-align: left;
+  padding-left: 20px;
+  margin-top: 50px;
 }
+
+.text-admin-panel {
+  font-size: 70px;
+  color: #333;
+}
+
+.dropdown-container {
+  text-align: center;
+  margin-top: 2em;
+  padding-left: 20px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+
+.dropdown-content {
+  padding-left: 5px;
+
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1;
+  text-align: center;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #f1f1f1;
+}
+
 
 
 /* ----------- Operazione sui film drop-down menu -----------*/
@@ -79,7 +128,7 @@ a {
     background-color: #f1f1f1;
     color: black;
     padding: 8px 12px;
-    font-size: 14px;
+    font-size: 20px;
     border: none;
     cursor: pointer;
   }
@@ -118,37 +167,56 @@ a {
 
   /* --- forNewMovie.html ----*/
 
- 
   
-  .form {
-    text-align: center;
-  }
-  
-  .form-group {
-    margin-bottom: 10px;
-  }
-  
-  label {
-    display: block;
-  }
-  
-  input[type="text"],
-  button {
-    padding: 5px 10px;
-  }
-  
-  .container {
+  .container-film {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    padding-top: 1em;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2em;
   }
   
-  .heading {
-    text-align: center;
+  .form-film {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
+  
+  .form-group-film {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .form-group-film label {
+    text-align: left;
+  }
+  
+  .form-group-film input[type="text"],
+  .form-group-film input[type="file"] {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .form-group-film button {
+    margin-top: 20px;
+  }
+  
 
+
+
+
+
+
+
+
+  
   /*---- manageMovies.html -------- */
   .container {
     display: flex;
@@ -380,62 +448,58 @@ button {
 
 /*------------------ formNewArtist.html ---------------------*/
 
-
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding-top: 1em;
-}
-
-.heading {
-  text-align: center;
+  justify-content: center;
+  
+  padding-top: 2em;
 }
 
 .artist-form {
-  width: 600px;
-  padding: 20px;
-  text-align: center;
-}
-
-.error-message {
-  color: red;
-  margin-bottom: 10px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-field {
-  margin-bottom: 10px;
-  text-align: center;
-
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
-label {
-  display: inline-block;
-  width: 100px;
-  font-weight: bold;
+.form-field label {
+  text-align: left;
 }
 
-input[type="text"],
-input[type="date"] {
-  width: 200px;
-  padding: 5px;
+.form-field input[type="text"],
+.form-field input[type="date"],
+.form-field input[type="file"] {
+  width: 100%;
+  padding: 0.5em;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .submit-button {
-  text-align: center;
+  /* ... altre regole CSS ... */
   margin-top: 20px;
 }
 
-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
+
+
+
+button:hover {
+  background-color: #45a049;
 }
+
+
+
 
 button:hover {
   background-color: #45a049;

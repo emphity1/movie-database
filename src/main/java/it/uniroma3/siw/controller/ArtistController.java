@@ -1,5 +1,10 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.repository.ArtistRepository;
@@ -61,17 +68,53 @@ public class ArtistController {
 		return "admin/indexArtist.html";
 	}
 	
+
+
 	@PostMapping("/admin/artist")
-	public String newArtist(@ModelAttribute("artist") Artist artist, Model model) {
-		if (!artistRepository.existsByNameAndSurname(artist.getName(), artist.getSurname())) {
-			this.artistRepository.save(artist); 
+	public String newArtist(@ModelAttribute("artist") Artist artist, Model model,@RequestParam("photo") MultipartFile photo) {
+
+
+		//if (!artistRepository.existsByNameAndSurname(artist.getName(), artist.getSurname())) {
+			//model.addAttribute("artist", artist);
+			//return "artist.html";
+		//}
+		try{
+
+			this.artistRepository.save(artist);
+			
+			byte[] photoBytes = photo.getBytes();
+
+			artist.setImg(photoBytes);
+
+			String fileName = artist.getId() + "_" + photo.getOriginalFilename();
+			artist.setFileName(fileName);
+
+			String photoPath = "/images/artist_imgs/";
+			artist.setPhotoPath(photoPath);
+
+			String DirPhotoPath = "/home/dima/Desktop/movie-db-backup/copia/movie-database-master/src/main/resources/static/images/artist_imgs/";
+			String fullFilePathName = DirPhotoPath + fileName;
+
+			Path path = Paths.get(fullFilePathName);
+			Files.write(path, photoBytes);
+
+			this.artistRepository.save(artist);
+
 			model.addAttribute("artist", artist);
+
 			return "artist.html";
-		} else {
-			model.addAttribute("messaggioErrore", "Questo artista esiste già");
-			return "admin/formNewArtist.html"; 
+		}catch (IOException e) {
+			// Gestisci l'errore in caso di problemi durante il salvataggio dell'immagine
+			return "redirect:/error";
 		}
+
+
+
 	}
+
+
+
+
 
 	@GetMapping("/artist/{id}")
 	public String getArtist(@PathVariable("id") Long id, Model model) {

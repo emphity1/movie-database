@@ -15,7 +15,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="Movie")
@@ -33,13 +32,44 @@ public class Movie {
     @Max(2023)
 	private Integer year;
     
-	@Type(type="org.hibernate.type.BinaryType")
-	@Column(name = "image", columnDefinition = "BYTEA")
-	private byte[] image;
+	
+    private byte[] photo;
 
+	private String photoPath;
+	private String fileName;
 
+	public String getFileName() {
+		return this.fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 
 	
+
+
+    // Getters and setters
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    // Getter e setter per il campo 'photo'
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+
+
 	@ManyToOne
 	private Artist director;
 	
@@ -55,13 +85,14 @@ public class Movie {
 
 	/* ============================================= */
 
-	public byte[] getImage() {
-		return this.image;
-	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
+	
+
+
+
+
+
+
 
 	public List<Reviews> getReviews() {
 		return this.reviews;
@@ -71,6 +102,9 @@ public class Movie {
 		this.reviews = reviews;
 	}
 	
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -94,7 +128,6 @@ public class Movie {
 		this.year = year;
 	}
 	
-
 
 
 	public Artist getDirector() {

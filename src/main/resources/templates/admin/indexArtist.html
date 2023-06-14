@@ -52,9 +52,9 @@
     <div class="artist-info">
         <span class="birth-date" th:text="'Data di nascita: ' + ${artist.dateOfBirth}">20/20/2000</span>
     </div>
-    <div class="image-box">
-        <img class="artist-image" th:src="${artist.urlOfPicture}" alt="Immagine dell'artista">
-    </div>
+	<div class="image-box">
+		<img th:src="@{${artist.photoPath + artist.fileName}}" alt="Movie Photo">
+	</div>
 </div>
 <div th:unless="${artist}">Non esiste!</div>
 
