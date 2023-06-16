@@ -35,29 +35,14 @@ public class Movie {
 	
     private byte[] photo;
 
-	private String photoPath;
-	private String fileName;
-
-	public String getFileName() {
-		return this.fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+	//private String photoPath;
+	//private String fileName;
 
 	
 
 
     // Getters and setters
 
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
-    }
-
-    public String getPhotoPath() {
-        return photoPath;
-    }
 
     // Getter e setter per il campo 'photo'
     public byte[] getPhoto() {

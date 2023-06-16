@@ -23,13 +23,13 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav elenco">
                 <li class="nav-item elenco-film">
-                    <a class="nav-link" href="/movie">Elenco Film</a>
+                    <a class="nav-link" href="/admin/movieList">Elenco Film</a>
                 </li>
                 <li class="nav-item elenco-artisti">
-                    <a class="nav-link" href="/artist">Elenco Artisti</a>
+                    <a class="nav-link" href="/admin/indexAllArtists">Elenco Artisti</a>
                 </li>
                 <li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
-                    <a class="nav-link" href="/formSearchMovies">Ricerca Film</a>
+                    <a class="nav-link" href="/admin/adminFormSearchMovies">Ricerca Film</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -49,7 +49,7 @@
             <div th:if="${movie}">
                 <h2 th:text="${movie.title}">Up!</h2>
                 <div class="image-box">
-                    <img th:src="@{${movie.photoPath + movie.fileName}}" alt="Movie Photo">
+                    <img th:src="'data:image/jpeg;base64,' + ${photo}" alt="Movie Photo">
                 </div>
             </div>
             <div th:unless="${movie}">Non esiste</div>

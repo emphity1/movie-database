@@ -38,12 +38,6 @@ public class ArtistController {
 		return "/admin/manageArtist.html";
 	}
 
-	@GetMapping("/admin/artist/{id}")
-	public String getArtistAdmin(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("artist", this.artistRepository.findById(id).get());
-		return "/admin/manageArtistAdmin.html"; //mangeArtistAdmin visualizza la lista degli artisti
-	}
-
 	@PostMapping("/admin/delete-artist/{id}")
 	public String deleteArtist(@PathVariable("id") Long artistId){
 		artistRepository.deleteById(artistId);
@@ -60,12 +54,19 @@ public class ArtistController {
 	@GetMapping(value="/admin/formNewArtist")
 	public String formNewArtist(Model model) {
 		model.addAttribute("artist", new Artist());
-		return "admin/formNewArtist.html";
+		return "/admin/formNewArtist.html";
 	}
 	
 	@GetMapping(value="/admin/indexArtist")
 	public String indexArtist() {
-		return "admin/indexArtist.html";
+		return "/admin/indexArtist.html";
+	}
+
+
+	@GetMapping(value = "/admin/indexAllArtists")
+	public String indexAllArtists(Model model) {
+		model.addAttribute("artists", this.artistRepository.findAll());
+		return "/admin/indexAllArtists.html";
 	}
 	
 
@@ -74,11 +75,8 @@ public class ArtistController {
 	public String newArtist(@ModelAttribute("artist") Artist artist, Model model,@RequestParam("photo") MultipartFile photo) {
 
 
-		//if (!artistRepository.existsByNameAndSurname(artist.getName(), artist.getSurname())) {
-			//model.addAttribute("artist", artist);
-			//return "artist.html";
-		//}
-		try{
+		if (!artistRepository.existsByNameAndSurname(artist.getName(), artist.getSurname())) {
+		}try{
 
 			this.artistRepository.save(artist);
 			
@@ -86,23 +84,11 @@ public class ArtistController {
 
 			artist.setImg(photoBytes);
 
-			String fileName = artist.getId() + "_" + photo.getOriginalFilename();
-			artist.setFileName(fileName);
-
-			String photoPath = "/images/artist_imgs/";
-			artist.setPhotoPath(photoPath);
-
-			String DirPhotoPath = "/home/dima/Desktop/movie-db-backup/copia/movie-database-master/src/main/resources/static/images/artist_imgs/";
-			String fullFilePathName = DirPhotoPath + fileName;
-
-			Path path = Paths.get(fullFilePathName);
-			Files.write(path, photoBytes);
-
 			this.artistRepository.save(artist);
 
 			model.addAttribute("artist", artist);
 
-			return "artist.html";
+			return "redirect:/admin/indexArtists";
 		}catch (IOException e) {
 			// Gestisci l'errore in caso di problemi durante il salvataggio dell'immagine
 			return "redirect:/error";
@@ -114,13 +100,49 @@ public class ArtistController {
 
 
 
+	@GetMapping("/admin/artist/{id}")
+	public String getArtistAdmin(@PathVariable("id") Long id, Model model) {
+
+		Artist artist = this.artistRepository.findById(id).get();
+
+		byte[] photo = artist.getImg();
+		if(photo != null) {
+			String image = java.util.Base64.getEncoder().encodeToString(photo);
+			model.addAttribute("image", image);
+		}
+
+		model.addAttribute("artist", this.artistRepository.findById(id).get());
+		return "/admin/manageArtistAdmin.html"; //mangeArtistAdmin visualizza la lista degli artisti
+	}
+
+
+
+
+	@GetMapping("/admin/indexArtists")
+	public String getArtistsAdminIndex(Model model) {
+		model.addAttribute("artists", this.artistRepository.findAll());
+		return "/admin/indexAllArtists.html";
+	}
+
 
 
 	@GetMapping("/artist/{id}")
 	public String getArtist(@PathVariable("id") Long id, Model model) {
+
+		Artist artist = this.artistRepository.findById(id).get();
+
+		byte[] image = artist.getImg();
+		if(image != null) {
+			String photo = java.util.Base64.getEncoder().encodeToString(image);
+			model.addAttribute("photo", photo);
+		}
+
 		model.addAttribute("artist", this.artistRepository.findById(id).get());
 		return "artist.html";
 	}
+
+
+
 
 	@GetMapping("/artist")
 	public String getArtists(Model model) {

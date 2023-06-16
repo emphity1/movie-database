@@ -55,7 +55,7 @@ Pagina di appoggio per visualizzare il film appena aggiunto
                 <h2 th:text="${movie.title}">Up!</h2>
                 <p>Anno: <span th:text="${movie.year}"></span></p>
                 <div class="image-box">
-                    <img th:src="@{${movie.photoPath + movie.fileName}}" alt="Movie Photo">
+                    <img th:src="'data:image/jpeg;base64,' + ${photo}" alt="Movie Photo">
                 </div>
             </div>
             <div th:unless="${movie}">Non esiste</div>

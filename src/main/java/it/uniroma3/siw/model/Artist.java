@@ -32,9 +32,6 @@ public class Artist {
 	
 	private byte[] img;
 
-	private String photoPath;
-	private String fileName;
-
 
 
 	
@@ -58,21 +55,7 @@ public class Artist {
 		this.img = img;
 	}
 
-	public String getPhotoPath() {
-		return this.photoPath;
-	}
 
-	public void setPhotoPath(String photoPath) {
-		this.photoPath = photoPath;
-	}
-
-	public String getFileName() {
-		return this.fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
 
 	public Set<Movie> getStarredMovies() {
 		return this.starredMovies;

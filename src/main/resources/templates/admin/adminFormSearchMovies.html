@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html>
 
@@ -10,11 +9,11 @@
 	<!-- Collegamento al file CSS di Bootstrap -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.4.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/admin-ui.css" />
+	<link rel="stylesheet" href="/css/stile.css" />
 </head>
 
 <body>
-<!-------------------- NAVBAR ----------------->
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/#">SIW MOVIE DATABASE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,47 +50,15 @@
 	  </div>
 </nav>
 
-
-<!--------------- Contenuto principale ---------------------------->
-
-
-<div class="container">
-    <h1 class="heading">Aggiungi un artista</h1>
-    <form class="artist-form" th:action="@{/admin/artist}" method="POST" th:object="${artist}" enctype="multipart/form-data">
-      <div class="error-message">
-        <span th:text="${messaggioErrore}">Errore</span>
-      </div>
-
-      <div class="form-field">
-        <label>Nome:</label>
-        <span><input required type="text" th:field="${artist.name}" /></span>
-      </div>
-
-      <div class="form-field">
-        <label>Cognome:</label>
-        <span><input required type="text" th:field="${artist.surname}" /></span>
-      </div>
-
-      <div class="form-field">
-        <label>Data di nascita:</label>
-        <span><input type="date" th:field="${artist.dateOfBirth}" /></span>
-      </div>
-
-      <div class="form-field foto-text-artist">
-        <label for="photo">Foto:</label>
-        <input type="file"th:name="photo" th:id="photo" accept="image/*" >
-      </div>
-
-      <div class="submit-button">
-        <button type="submit">Conferma</button>
-      </div>
-    </form>
-  </div>
-
-
-
-
-
+<div class="container mt-4" th:if="${#request.userPrincipal}">
+	<h2>Ricerca Film per Anno</h2>
+	<form th:action="@{/admin/searchMovies}" method="POST">
+		<div class="form-group">
+			<input type="text" name="year" th:value="${year}" class="form-control" id="anno" placeholder="anno" min="1800" max="2023" required>
+		</div>
+		<button type="submit"  class="btn btn-primary">Cerca</button>
+	</form>
+</div>
 
 
 
@@ -103,25 +70,6 @@
 
 </body>
 </html>
+
+
 <!-- trunk-ignore(git-diff-check/error) -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

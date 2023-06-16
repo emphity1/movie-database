@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +15,6 @@ import java.nio.file.Paths;
 
 import javax.validation.Valid;
 
-import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
 
 import it.uniroma3.siw.controller.validator.MovieValidator;
 import it.uniroma3.siw.model.Artist;
@@ -185,22 +187,22 @@ public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResul
         movie.setPhoto(photoBytes);
 
         // Salva l'immagine sul disco
-        String fileName = movie.getId() + "_" + photo.getOriginalFilename();
-        movie.setFileName(fileName);
+        //String fileName = movie.getId() + "_" + photo.getOriginalFilename();
+       // movie.setFileName(fileName);
 
-		String photoPath = "/images/movie_imgs/";
-        movie.setPhotoPath(photoPath);
+		//String photoPath = "/images/movie_imgs/";
+        //movie.setPhotoPath(photoPath);
 
-		String DirphotoPath = "/home/dima/Desktop/movie-db-backup/copia/movie-database-master/src/main/resources/static/images/movie_imgs/";
-        String fullFilePathName = DirphotoPath + fileName;
+		//String DirphotoPath = "/home/dima/Desktop/movie-db-backup/copia/movie-database-master/src/main/resources/static/images/movie_imgs/";
+        //String fullFilePathName = DirphotoPath + fileName;
 
-        Path path = Paths.get(fullFilePathName);
-        Files.write(path, photoBytes);
+        //Path path = Paths.get(fullFilePathName);
+        //Files.write(path, photoBytes);
 
         this.movieRepository.save(movie);
 
         model.addAttribute("movie", movie);
-        return "movieAdded.html";
+        return "redirect:/admin/movieList";
     } catch (IOException e) {
         // Gestisci l'errore in caso di problemi durante il salvataggio dell'immagine
         return "redirect:/error";
@@ -215,10 +217,23 @@ public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResul
 
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
+
+		Movie movie = this.movieRepository.findById(id).get();
+
+		byte[] photoBytes = movie.getPhoto();
+		if (photoBytes != null) {
+			// Converte i byte dell'immagine in Base64
+			String photo = Base64.getEncoder().encodeToString(photoBytes);
+			System.out.println("FOTO e " + photo);
+			// Aggiungi l'URL dell'immagine al modello
+			model.addAttribute("photo", photo);
+		}
+
 		model.addAttribute("movie", this.movieRepository.findById(id).get());
 
 		//fa si che ogni film visualizzi i commenti propri
 		model.addAttribute("review", this.reviewsRepository.findByMovieId(id));
+
 		return "movie.html";
 	}
 
@@ -239,6 +254,16 @@ public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResul
 
 	@GetMapping("/admin/movie/{id}")
 	public String getMovieAdmin(@PathVariable("id") Long id, Model model) {
+
+		Movie movie = this.movieRepository.findById(id).get();
+
+		byte[] photoBytes = movie.getPhoto();
+		if (photoBytes != null) {
+			// Converte i byte dell'immagine in Base64
+			String photo = Base64.getEncoder().encodeToString(photoBytes);
+			// Aggiungi l'URL dell'immagine al modello
+			model.addAttribute("photo", photo);
+		}
 		model.addAttribute("movie", this.movieRepository.findById(id).get());
 
 		//fa si che ogni film visualizzi i commenti propri
@@ -285,10 +310,6 @@ public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResul
 
 
 
-
-
-
-
 	/*============================================================== */
 	/*============================================================== */
 	/*============================================================== */
@@ -302,7 +323,28 @@ public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResul
 	public String searchMovies(Model model, @RequestParam int year) {
 		model.addAttribute("movies", this.movieRepository.findByYear(year));
 		return "foundMovies.html";
+
 	}
+
+
+	@GetMapping("/admin/GetAllMovies")
+	public String formSearchMoviesAdmin() {
+		return "/admin/indexMovies.html";
+	}
+
+	@GetMapping("/admin/adminFormSearchMovies")
+	public String adminFormSearchMovies() {
+		return "/admin/adminFormSearchMovies.html";
+	}
+	@PostMapping("/admin/searchMovies")
+	public String searchMoviesAdmin(Model model, @RequestParam int year) {
+		model.addAttribute("movies", this.movieRepository.findByYear(year));
+		return "/admin/indexMovies.html";
+
+	}
+
+
+
 	
 	@GetMapping("/admin/updateActors/{id}")
 	public String updateActors(@PathVariable("id") Long id, Model model) {

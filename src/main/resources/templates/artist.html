@@ -57,7 +57,7 @@
         <span class="birth-date" th:text="'Data di nascita: ' + ${artist.dateOfBirth}"></span>
     </div>
 	<div class="image-box">
-		<img th:src="@{${artist.photoPath + artist.fileName}}" alt="Movie Photo">
+		<img th:src="'data:image/jpeg;base64,' + ${photo}" alt="Movie Photo">
 	</div>
 </div>
 <div th:unless="${artist}">Non esiste</div>

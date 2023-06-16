@@ -10,11 +10,11 @@
 	<!-- Collegamento al file CSS di Bootstrap -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.4.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/admin-ui.css" />
+	<link rel="stylesheet" href="/css/stile.css" />
 </head>
 
 <body>
-<!-------------------- NAVBAR ----------------->
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/#">SIW MOVIE DATABASE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,62 +36,29 @@
 		<ul class="navbar-nav">
 			<li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
 				<span class="nav-link logged-as-text">Logged as: <span th:text="${#request.userPrincipal.name}"></span></span>
+			  </li>
+			<li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
+				<a class="nav-link" href="/logout">Logout</a>
 			</li>
-		  <li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
-			<a class="nav-link" href="/login">Login</a>
-		  </li>
-		  <li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
-			<a class="nav-link" href="/logout">Logout</a>
-		  </li>
-		  <li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
-			<a class="nav-link" href="/register">Register</a>
-		  </li>
+			<li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
+				<a class="nav-link" href="/login">Login</a>
+			</li>
+			<li class="nav-item ml-auto" th:unless="${#request.userPrincipal}">
+				<a class="nav-link" href="/register">Register</a>
+			</li>
 
 		</ul>
 	  </div>
 </nav>
 
+<h1 class="text-artists">Artisti</h1>
 
-<!--------------- Contenuto principale ---------------------------->
-
-
-<div class="container">
-    <h1 class="heading">Aggiungi un artista</h1>
-    <form class="artist-form" th:action="@{/admin/artist}" method="POST" th:object="${artist}" enctype="multipart/form-data">
-      <div class="error-message">
-        <span th:text="${messaggioErrore}">Errore</span>
-      </div>
-
-      <div class="form-field">
-        <label>Nome:</label>
-        <span><input required type="text" th:field="${artist.name}" /></span>
-      </div>
-
-      <div class="form-field">
-        <label>Cognome:</label>
-        <span><input required type="text" th:field="${artist.surname}" /></span>
-      </div>
-
-      <div class="form-field">
-        <label>Data di nascita:</label>
-        <span><input type="date" th:field="${artist.dateOfBirth}" /></span>
-      </div>
-
-      <div class="form-field foto-text-artist">
-        <label for="photo">Foto:</label>
-        <input type="file"th:name="photo" th:id="photo" accept="image/*" >
-      </div>
-
-      <div class="submit-button">
-        <button type="submit">Conferma</button>
-      </div>
-    </form>
-  </div>
-
-
-
-
-
+<div th:if="${artists == null or artists.isEmpty()}">Non ci sono artisti nel sistema</div>
+<ul class="artists-list">
+    <li th:each="artist : ${artists}">
+        <a th:href="@{'/admin/artist/' + ${artist.id}}" th:text="${artist.name + ' ' + artist.surname}">Dino Risi</a>
+    </li>
+</ul>
 
 
 
@@ -103,25 +70,24 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- trunk-ignore(git-diff-check/error) -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

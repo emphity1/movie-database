@@ -24,13 +24,13 @@
 	<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 		<ul class="navbar-nav elenco">
 			<li class="nav-item elenco-film">
-				<a class="nav-link" href="/movie">Elenco Film</a>
+				<a class="nav-link" href="/admin/movieList">Elenco Film</a>
 			</li>
 			<li class="nav-item elenco-artisti">
-				<a class="nav-link" href="/artist">Elenco Artisti</a>
+				<a class="nav-link" href="/admin/indexAllArtists">Elenco Artisti</a>
 			</li>
 			<li class="nav-item ml-auto" th:if="${#request.userPrincipal}">
-				<a class="nav-link" href="/formSearchMovies">Ricerca Film</a>
+				<a class="nav-link" href="/admin/adminFormSearchMovies">Ricerca Film</a>
 			</li>
 		</ul>
 		<ul class="navbar-nav">
