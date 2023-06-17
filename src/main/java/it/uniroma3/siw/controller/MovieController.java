@@ -247,7 +247,7 @@ public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResul
 	@GetMapping("/admin/movieList")
 	public String getMovieAdmin(Model model) {
 		model.addAttribute("movies", this.movieRepository.findAll());
-		return "/admin/indexMovies.html";
+		return "admin/indexMovies.html";
 	}
 
 
@@ -268,7 +268,7 @@ public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResul
 
 		//fa si che ogni film visualizzi i commenti propri
 		model.addAttribute("review", this.reviewsRepository.findByMovieId(id));
-		return "/admin/manageMovieReview.html";
+		return "admin/manageMovieReview.html";
 	}
 
 	/* ====================================================================================== */
@@ -329,17 +329,17 @@ public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResul
 
 	@GetMapping("/admin/GetAllMovies")
 	public String formSearchMoviesAdmin() {
-		return "/admin/indexMovies.html";
+		return "admin/indexMovies.html";
 	}
 
 	@GetMapping("/admin/adminFormSearchMovies")
 	public String adminFormSearchMovies() {
-		return "/admin/adminFormSearchMovies.html";
+		return "admin/adminFormSearchMovies.html";
 	}
 	@PostMapping("/admin/searchMovies")
 	public String searchMoviesAdmin(Model model, @RequestParam int year) {
 		model.addAttribute("movies", this.movieRepository.findByYear(year));
-		return "/admin/indexMovies.html";
+		return "admin/indexMovies.html";
 
 	}
 

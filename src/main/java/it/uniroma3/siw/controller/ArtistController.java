@@ -35,7 +35,7 @@ public class ArtistController {
 	@GetMapping("/admin/manage-artist")
 	public String getArtistsAdmin(Model model) {
 		model.addAttribute("artists", this.artistRepository.findAll());
-		return "/admin/manageArtist.html";
+		return "admin/manageArtist.html";
 	}
 
 	@PostMapping("/admin/delete-artist/{id}")
@@ -54,19 +54,19 @@ public class ArtistController {
 	@GetMapping(value="/admin/formNewArtist")
 	public String formNewArtist(Model model) {
 		model.addAttribute("artist", new Artist());
-		return "/admin/formNewArtist.html";
+		return "admin/formNewArtist.html";
 	}
 	
 	@GetMapping(value="/admin/indexArtist")
 	public String indexArtist() {
-		return "/admin/indexArtist.html";
+		return "admin/indexArtist.html";
 	}
 
 
 	@GetMapping(value = "/admin/indexAllArtists")
 	public String indexAllArtists(Model model) {
 		model.addAttribute("artists", this.artistRepository.findAll());
-		return "/admin/indexAllArtists.html";
+		return "admin/indexAllArtists.html";
 	}
 	
 
@@ -112,7 +112,7 @@ public class ArtistController {
 		}
 
 		model.addAttribute("artist", this.artistRepository.findById(id).get());
-		return "/admin/manageArtistAdmin.html"; //mangeArtistAdmin visualizza la lista degli artisti
+		return "admin/manageArtistAdmin.html"; //mangeArtistAdmin visualizza la lista degli artisti
 	}
 
 
@@ -121,7 +121,7 @@ public class ArtistController {
 	@GetMapping("/admin/indexArtists")
 	public String getArtistsAdminIndex(Model model) {
 		model.addAttribute("artists", this.artistRepository.findAll());
-		return "/admin/indexAllArtists.html";
+		return "admin/indexAllArtists.html";
 	}
 
 
